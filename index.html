@@ -43,7 +43,6 @@ section{margin:26px 0}
 ol.steps{padding-left:1.2em}
 .formbox{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.07)}
 .formbox iframe{width:100%;height:3600px;border:0;display:block}
-.prefill{display:none;background:var(--mint);border:1px solid #b7e0cc;border-radius:12px;padding:10px 14px;margin:0 0 12px}
 footer{background:var(--g);color:#e6f2ed;text-align:center;padding:22px 18px;margin-top:30px;font-size:.88rem}
 footer a{color:#fff}
 </style>
@@ -85,10 +84,8 @@ footer a{color:#fff}
     <h2 class="sec-title">Inscripción</h2>
     <ol class="steps">
       <li>Rellena <b>un formulario por cada jugador/a</b>.</li>
-      <li>Si has recibido un <b>enlace personal</b>, algunos datos ya vienen rellenados: revísalos y completa el resto.</li>
       <li>Lee las condiciones y las autorizaciones (las de fotos son opcionales) y envía.</li>
     </ol>
-    <div class="prefill" id="prefill">✅ Hemos rellenado los datos que ya teníamos. Revísalos antes de enviar.</div>
     <div class="formbox">
       <iframe id="gform" title="Formulario de inscripción Academia MQV" loading="lazy"
         src="https://docs.google.com/forms/d/e/1FAIpQLSdi8vzp4nP8ommGFZjmX_c-lgy5OD4ZSAD2UwQxwUFbtWQqBg/viewform?embedded=true">Cargando…</iframe>
@@ -107,21 +104,5 @@ footer a{color:#fff}
   Coordinación: José Miguel Tomás · <a href="tel:+34639675711">639 67 57 11</a>
 </footer>
 
-<script>
-// Datos prerrellenados en el fragmento (#...) para que no viajen al servidor.
-(function(){
-  var h = location.hash.slice(1);
-  if (!h || h.indexOf('entry.') === -1) return;
-  var base = 'https://docs.google.com/forms/d/e/1FAIpQLSdi8vzp4nP8ommGFZjmX_c-lgy5OD4ZSAD2UwQxwUFbtWQqBg/viewform';
-  var p = new URLSearchParams(h), q = new URLSearchParams();
-  p.forEach(function(v,k){ if (/^entry\.\d+$/.test(k)) q.append(k,v); });
-  q.set('usp','pp_url');
-  document.getElementById('gform').src = base + '?embedded=true&' + q.toString();
-  document.getElementById('direct').href = base + '?' + q.toString();
-  document.getElementById('prefill').style.display = 'block';
-  history.replaceState(null,'',location.pathname + '#inscripcion');
-  document.getElementById('inscripcion').scrollIntoView();
-})();
-</script>
 </body>
 </html>
